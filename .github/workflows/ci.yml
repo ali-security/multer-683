@@ -136,23 +136,3 @@ jobs:
         else
           npm test
         fi
-
-    - name: Collect code coverage
-      uses: coverallsapp/github-action@09b709cf6a16e30b0808ba050c7a6e8a5ef13f8d # master
-      if: steps.list_env.outputs.nyc != ''
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: run-${{ matrix.test_number }}
-        parallel: true
-
-  coverage:
-    permissions:
-      checks: write  # for coverallsapp/github-action to create new checks
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - name: Upload code coverage
-      uses: coverallsapp/github-action@09b709cf6a16e30b0808ba050c7a6e8a5ef13f8d # master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
